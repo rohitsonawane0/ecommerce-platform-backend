@@ -1,0 +1,40 @@
+# Overlay for the Hetzner k3s server (everything runs inside the cluster).
+#
+#   helm upgrade --install ecommerce . -f values.yaml -f values-server.yaml
+#
+# Differences from local development:
+#   - Postgres and Redis run as in-cluster StatefulSets, not host containers
+#   - one Postgres holding all five databases, reached at postgres:5432
+#   - no host.docker.internal anywhere (that only exists on orbstack)
+
+postgres:
+  enabled: true
+redis:
+  enabled: true
+  host: redis
+  port: '6379'
+
+db:
+  host: postgres
+  port: '5432'
+  username: postgres
+
+# The five services each had their own Postgres container on its own host port
+# locally. With one shared instance they differ only by database NAME, so the
+# per-service port overrides are removed (null deletes the key on merge).
+services:
+  auth:
+    dbPort: null
+  product:
+    dbPort: null
+  cart:
+    dbPort: null
+  orders:
+    dbPort: null
+  user:
+    dbPort: null
+
+  apiGateway:
+    # k3s ServiceLB binds this to the node's public IP — no cloud load balancer,
+    # no monthly fee.
+    serviceType: LoadBalancer

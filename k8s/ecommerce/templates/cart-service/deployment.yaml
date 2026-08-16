@@ -1,0 +1,63 @@
+{{- $svc := .Values.services.cart }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $svc.name }}
+  labels:
+    {{- include "ecommerce.labels" (dict "name" $svc.name "root" $) | nindent 4 }}
+spec:
+  replicas: {{ $svc.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $svc.name }}
+  template:
+    metadata:
+      labels:
+        {{- include "ecommerce.labels" (dict "name" $svc.name "root" $) | nindent 8 }}
+    spec:
+      {{- include "ecommerce.pullSecrets" . | nindent 6 }}
+      containers:
+        - name: {{ $svc.name }}
+          image: {{ include "ecommerce.image" (dict "svc" $svc "root" $) }}
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports:
+            - name: tcp
+              containerPort: {{ $svc.port }}
+            - name: health
+              containerPort: {{ $.Values.global.healthPort }}
+          env:
+            - name: SERVICE_PORT
+              value: {{ $svc.port | quote }}
+            - name: HEALTH_PORT
+              value: {{ $.Values.global.healthPort | quote }}
+            - name: CART_DB_HOST
+              value: {{ .Values.db.host }}
+            - name: CART_DB_PORT
+              value: {{ $svc.dbPort | default $.Values.db.port | quote }}
+            - name: CART_DB_USERNAME
+              value: {{ .Values.db.username }}
+            - name: CART_DB_NAME
+              value: {{ $svc.dbName }}
+            - name: CART_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: db-password
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: health
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: health
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

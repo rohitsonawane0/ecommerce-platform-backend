@@ -46,31 +46,13 @@
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
     },
-    "inventory-service": {
+    "orders-service": {
       "type": "application",
-      "root": "apps/inventory-service",
+      "root": "apps/orders-service",
       "entryFile": "main",
-      "sourceRoot": "apps/inventory-service/src",
+      "sourceRoot": "apps/orders-service/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/inventory-service/tsconfig.app.json"
-      }
-    },
-    "notification-service": {
-      "type": "application",
-      "root": "apps/notification-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/notification-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/notification-service/tsconfig.app.json"
-      }
-    },
-    "order-service": {
-      "type": "application",
-      "root": "apps/order-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/order-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/order-service/tsconfig.app.json"
+        "tsConfigPath": "apps/orders-service/tsconfig.app.json"
       }
     },
     "payment-service": {

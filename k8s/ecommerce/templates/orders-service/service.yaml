@@ -1,0 +1,16 @@
+{{- $svc := .Values.services.orders }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $svc.name }}
+  labels:
+    {{- include "ecommerce.labels" (dict "name" $svc.name "root" $) | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ $svc.name }}
+  ports:
+    - name: tcp
+      port: {{ $svc.port }}
+      targetPort: {{ $svc.port }}
+      protocol: TCP

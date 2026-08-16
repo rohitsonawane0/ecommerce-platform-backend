@@ -1,0 +1,1202 @@
+[
+  {
+    "name": "Essence Mascara Lash Princess",
+    "slug": "essence-mascara-lash-princess-1",
+    "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
+    "price": 9.99,
+    "stock": 99,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "beauty"
+    ]
+  },
+  {
+    "name": "Eyeshadow Palette with Mirror",
+    "slug": "eyeshadow-palette-with-mirror-2",
+    "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+    "price": 19.99,
+    "stock": 34,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "beauty"
+    ]
+  },
+  {
+    "name": "Powder Canister",
+    "slug": "powder-canister-3",
+    "description": "The Powder Canister is a finely milled setting powder designed to set makeup and control shine. With a lightweight and translucent formula, it provides a smooth and matte finish.",
+    "price": 14.99,
+    "stock": 89,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/beauty/powder-canister/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "beauty"
+    ]
+  },
+  {
+    "name": "Red Lipstick",
+    "slug": "red-lipstick-4",
+    "description": "The Red Lipstick is a classic and bold choice for adding a pop of color to your lips. With a creamy and pigmented formula, it provides a vibrant and long-lasting finish.",
+    "price": 12.99,
+    "stock": 91,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/beauty/red-lipstick/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "beauty"
+    ]
+  },
+  {
+    "name": "Red Nail Polish",
+    "slug": "red-nail-polish-5",
+    "description": "The Red Nail Polish offers a rich and glossy red hue for vibrant and polished nails. With a quick-drying formula, it provides a salon-quality finish at home.",
+    "price": 8.99,
+    "stock": 79,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/beauty/red-nail-polish/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "beauty"
+    ]
+  },
+  {
+    "name": "Calvin Klein CK One",
+    "slug": "calvin-klein-ck-one-6",
+    "description": "CK One by Calvin Klein is a classic unisex fragrance, known for its fresh and clean scent. It's a versatile fragrance suitable for everyday wear.",
+    "price": 49.99,
+    "stock": 29,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "fragrances"
+    ]
+  },
+  {
+    "name": "Chanel Coco Noir Eau De",
+    "slug": "chanel-coco-noir-eau-de-7",
+    "description": "Coco Noir by Chanel is an elegant and mysterious fragrance, featuring notes of grapefruit, rose, and sandalwood. Perfect for evening occasions.",
+    "price": 129.99,
+    "stock": 58,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/fragrances/chanel-coco-noir-eau-de/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "fragrances"
+    ]
+  },
+  {
+    "name": "Dior J'adore",
+    "slug": "dior-j-adore-8",
+    "description": "J'adore by Dior is a luxurious and floral fragrance, known for its blend of ylang-ylang, rose, and jasmine. It embodies femininity and sophistication.",
+    "price": 89.99,
+    "stock": 98,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/fragrances/dior-j'adore/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "fragrances"
+    ]
+  },
+  {
+    "name": "Dolce Shine Eau de",
+    "slug": "dolce-shine-eau-de-9",
+    "description": "Dolce Shine by Dolce & Gabbana is a vibrant and fruity fragrance, featuring notes of mango, jasmine, and blonde woods. It's a joyful and youthful scent.",
+    "price": 69.99,
+    "stock": 4,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/fragrances/dolce-shine-eau-de/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "fragrances"
+    ]
+  },
+  {
+    "name": "Gucci Bloom Eau de",
+    "slug": "gucci-bloom-eau-de-10",
+    "description": "Gucci Bloom by Gucci is a floral and captivating fragrance, with notes of tuberose, jasmine, and Rangoon creeper. It's a modern and romantic scent.",
+    "price": 79.99,
+    "stock": 91,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/fragrances/gucci-bloom-eau-de/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "fragrances"
+    ]
+  },
+  {
+    "name": "Annibale Colombo Bed",
+    "slug": "annibale-colombo-bed-11",
+    "description": "The Annibale Colombo Bed is a luxurious and elegant bed frame, crafted with high-quality materials for a comfortable and stylish bedroom.",
+    "price": 1899.99,
+    "stock": 88,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "furniture"
+    ]
+  },
+  {
+    "name": "Annibale Colombo Sofa",
+    "slug": "annibale-colombo-sofa-12",
+    "description": "The Annibale Colombo Sofa is a sophisticated and comfortable seating option, featuring exquisite design and premium upholstery for your living room.",
+    "price": 2499.99,
+    "stock": 60,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "furniture"
+    ]
+  },
+  {
+    "name": "Bedside Table African Cherry",
+    "slug": "bedside-table-african-cherry-13",
+    "description": "The Bedside Table in African Cherry is a stylish and functional addition to your bedroom, providing convenient storage space and a touch of elegance.",
+    "price": 299.99,
+    "stock": 64,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "furniture"
+    ]
+  },
+  {
+    "name": "Knoll Saarinen Executive Conference Chair",
+    "slug": "knoll-saarinen-executive-conference-chair-14",
+    "description": "The Knoll Saarinen Executive Conference Chair is a modern and ergonomic chair, perfect for your office or conference room with its timeless design.",
+    "price": 499.99,
+    "stock": 26,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/furniture/knoll-saarinen-executive-conference-chair/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "furniture"
+    ]
+  },
+  {
+    "name": "Wooden Bathroom Sink With Mirror",
+    "slug": "wooden-bathroom-sink-with-mirror-15",
+    "description": "The Wooden Bathroom Sink with Mirror is a unique and stylish addition to your bathroom, featuring a wooden sink countertop and a matching mirror.",
+    "price": 799.99,
+    "stock": 7,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/furniture/wooden-bathroom-sink-with-mirror/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "furniture"
+    ]
+  },
+  {
+    "name": "Apple",
+    "slug": "apple-16",
+    "description": "Fresh and crisp apples, perfect for snacking or incorporating into various recipes.",
+    "price": 1.99,
+    "stock": 8,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/apple/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Beef Steak",
+    "slug": "beef-steak-17",
+    "description": "High-quality beef steak, great for grilling or cooking to your preferred level of doneness.",
+    "price": 12.99,
+    "stock": 86,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/beef-steak/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Cat Food",
+    "slug": "cat-food-18",
+    "description": "Nutritious cat food formulated to meet the dietary needs of your feline friend.",
+    "price": 8.99,
+    "stock": 46,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/cat-food/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Chicken Meat",
+    "slug": "chicken-meat-19",
+    "description": "Fresh and tender chicken meat, suitable for various culinary preparations.",
+    "price": 9.99,
+    "stock": 97,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/chicken-meat/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Cooking Oil",
+    "slug": "cooking-oil-20",
+    "description": "Versatile cooking oil suitable for frying, sautéing, and various culinary applications.",
+    "price": 4.99,
+    "stock": 10,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/cooking-oil/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Cucumber",
+    "slug": "cucumber-21",
+    "description": "Crisp and hydrating cucumbers, ideal for salads, snacks, or as a refreshing side.",
+    "price": 1.49,
+    "stock": 84,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/cucumber/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Dog Food",
+    "slug": "dog-food-22",
+    "description": "Specially formulated dog food designed to provide essential nutrients for your canine companion.",
+    "price": 10.99,
+    "stock": 71,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/dog-food/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Eggs",
+    "slug": "eggs-23",
+    "description": "Fresh eggs, a versatile ingredient for baking, cooking, or breakfast.",
+    "price": 2.99,
+    "stock": 9,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/eggs/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Fish Steak",
+    "slug": "fish-steak-24",
+    "description": "Quality fish steak, suitable for grilling, baking, or pan-searing.",
+    "price": 14.99,
+    "stock": 74,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/fish-steak/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Green Bell Pepper",
+    "slug": "green-bell-pepper-25",
+    "description": "Fresh and vibrant green bell pepper, perfect for adding color and flavor to your dishes.",
+    "price": 1.29,
+    "stock": 33,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/green-bell-pepper/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Green Chili Pepper",
+    "slug": "green-chili-pepper-26",
+    "description": "Spicy green chili pepper, ideal for adding heat to your favorite recipes.",
+    "price": 0.99,
+    "stock": 3,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/green-chili-pepper/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Honey Jar",
+    "slug": "honey-jar-27",
+    "description": "Pure and natural honey in a convenient jar, perfect for sweetening beverages or drizzling over food.",
+    "price": 6.99,
+    "stock": 34,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/honey-jar/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Ice Cream",
+    "slug": "ice-cream-28",
+    "description": "Creamy and delicious ice cream, available in various flavors for a delightful treat.",
+    "price": 5.49,
+    "stock": 27,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/ice-cream/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Juice",
+    "slug": "juice-29",
+    "description": "Refreshing fruit juice, packed with vitamins and great for staying hydrated.",
+    "price": 3.99,
+    "stock": 50,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/juice/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Kiwi",
+    "slug": "kiwi-30",
+    "description": "Nutrient-rich kiwi, perfect for snacking or adding a tropical twist to your dishes.",
+    "price": 2.49,
+    "stock": 99,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/kiwi/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Lemon",
+    "slug": "lemon-31",
+    "description": "Zesty and tangy lemons, versatile for cooking, baking, or making refreshing beverages.",
+    "price": 0.79,
+    "stock": 31,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/lemon/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Milk",
+    "slug": "milk-32",
+    "description": "Fresh and nutritious milk, a staple for various recipes and daily consumption.",
+    "price": 3.49,
+    "stock": 27,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/milk/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Mulberry",
+    "slug": "mulberry-33",
+    "description": "Sweet and juicy mulberries, perfect for snacking or adding to desserts and cereals.",
+    "price": 4.99,
+    "stock": 99,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/mulberry/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Nescafe Coffee",
+    "slug": "nescafe-coffee-34",
+    "description": "Quality coffee from Nescafe, available in various blends for a rich and satisfying cup.",
+    "price": 7.99,
+    "stock": 57,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/nescafe-coffee/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Potatoes",
+    "slug": "potatoes-35",
+    "description": "Versatile and starchy potatoes, great for roasting, mashing, or as a side dish.",
+    "price": 2.29,
+    "stock": 13,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/potatoes/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Protein Powder",
+    "slug": "protein-powder-36",
+    "description": "Nutrient-packed protein powder, ideal for supplementing your diet with essential proteins.",
+    "price": 19.99,
+    "stock": 80,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/protein-powder/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Red Onions",
+    "slug": "red-onions-37",
+    "description": "Flavorful and aromatic red onions, perfect for adding depth to your savory dishes.",
+    "price": 1.99,
+    "stock": 82,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/red-onions/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Rice",
+    "slug": "rice-38",
+    "description": "High-quality rice, a staple for various cuisines and a versatile base for many dishes.",
+    "price": 5.99,
+    "stock": 59,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/rice/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Soft Drinks",
+    "slug": "soft-drinks-39",
+    "description": "Assorted soft drinks in various flavors, perfect for refreshing beverages.",
+    "price": 1.99,
+    "stock": 53,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/soft-drinks/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Strawberry",
+    "slug": "strawberry-40",
+    "description": "Sweet and succulent strawberries, great for snacking, desserts, or blending into smoothies.",
+    "price": 3.99,
+    "stock": 46,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/strawberry/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Tissue Paper Box",
+    "slug": "tissue-paper-box-41",
+    "description": "Convenient tissue paper box for everyday use, providing soft and absorbent tissues.",
+    "price": 2.49,
+    "stock": 86,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/tissue-paper-box/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Water",
+    "slug": "water-42",
+    "description": "Pure and refreshing bottled water, essential for staying hydrated throughout the day.",
+    "price": 0.99,
+    "stock": 53,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/groceries/water/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "groceries"
+    ]
+  },
+  {
+    "name": "Decoration Swing",
+    "slug": "decoration-swing-43",
+    "description": "The Decoration Swing is a charming addition to your home decor. Crafted with intricate details, it adds a touch of elegance and whimsy to any room.",
+    "price": 59.99,
+    "stock": 47,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/home-decoration/decoration-swing/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "home-decoration"
+    ]
+  },
+  {
+    "name": "Family Tree Photo Frame",
+    "slug": "family-tree-photo-frame-44",
+    "description": "The Family Tree Photo Frame is a sentimental and stylish way to display your cherished family memories. With multiple photo slots, it tells the story of your loved ones.",
+    "price": 29.99,
+    "stock": 77,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/home-decoration/family-tree-photo-frame/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "home-decoration"
+    ]
+  },
+  {
+    "name": "House Showpiece Plant",
+    "slug": "house-showpiece-plant-45",
+    "description": "The House Showpiece Plant is an artificial plant that brings a touch of nature to your home without the need for maintenance. It adds greenery and style to any space.",
+    "price": 39.99,
+    "stock": 28,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/home-decoration/house-showpiece-plant/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "home-decoration"
+    ]
+  },
+  {
+    "name": "Plant Pot",
+    "slug": "plant-pot-46",
+    "description": "The Plant Pot is a stylish container for your favorite plants. With a sleek design, it complements your indoor or outdoor garden, adding a modern touch to your plant display.",
+    "price": 14.99,
+    "stock": 59,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/home-decoration/plant-pot/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "home-decoration"
+    ]
+  },
+  {
+    "name": "Table Lamp",
+    "slug": "table-lamp-47",
+    "description": "The Table Lamp is a functional and decorative lighting solution for your living space. With a modern design, it provides both ambient and task lighting, enhancing the atmosphere.",
+    "price": 49.99,
+    "stock": 9,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/home-decoration/table-lamp/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "home-decoration"
+    ]
+  },
+  {
+    "name": "Bamboo Spatula",
+    "slug": "bamboo-spatula-48",
+    "description": "The Bamboo Spatula is a versatile kitchen tool made from eco-friendly bamboo. Ideal for flipping, stirring, and serving various dishes.",
+    "price": 7.99,
+    "stock": 37,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/bamboo-spatula/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Black Aluminium Cup",
+    "slug": "black-aluminium-cup-49",
+    "description": "The Black Aluminium Cup is a stylish and durable cup suitable for both hot and cold beverages. Its sleek black design adds a modern touch to your drinkware collection.",
+    "price": 5.99,
+    "stock": 75,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/black-aluminium-cup/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Black Whisk",
+    "slug": "black-whisk-50",
+    "description": "The Black Whisk is a kitchen essential for whisking and beating ingredients. Its ergonomic handle and sleek design make it a practical and stylish tool.",
+    "price": 9.99,
+    "stock": 73,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/black-whisk/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Boxed Blender",
+    "slug": "boxed-blender-51",
+    "description": "The Boxed Blender is a powerful and compact blender perfect for smoothies, shakes, and more. Its convenient design and multiple functions make it a versatile kitchen appliance.",
+    "price": 39.99,
+    "stock": 9,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/boxed-blender/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Carbon Steel Wok",
+    "slug": "carbon-steel-wok-52",
+    "description": "The Carbon Steel Wok is a versatile cooking pan suitable for stir-frying, sautéing, and deep frying. Its sturdy construction ensures even heat distribution for delicious meals.",
+    "price": 29.99,
+    "stock": 40,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/carbon-steel-wok/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Chopping Board",
+    "slug": "chopping-board-53",
+    "description": "The Chopping Board is an essential kitchen accessory for food preparation. Made from durable material, it provides a safe and hygienic surface for cutting and chopping.",
+    "price": 12.99,
+    "stock": 14,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/chopping-board/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Citrus Squeezer Yellow",
+    "slug": "citrus-squeezer-yellow-54",
+    "description": "The Citrus Squeezer in Yellow is a handy tool for extracting juice from citrus fruits. Its vibrant color adds a cheerful touch to your kitchen gadgets.",
+    "price": 8.99,
+    "stock": 22,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/citrus-squeezer-yellow/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Egg Slicer",
+    "slug": "egg-slicer-55",
+    "description": "The Egg Slicer is a convenient tool for slicing boiled eggs evenly. It's perfect for salads, sandwiches, and other dishes where sliced eggs are desired.",
+    "price": 6.99,
+    "stock": 40,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/egg-slicer/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Electric Stove",
+    "slug": "electric-stove-56",
+    "description": "The Electric Stove provides a portable and efficient cooking solution. Ideal for small kitchens or as an additional cooking surface for various culinary needs.",
+    "price": 49.99,
+    "stock": 21,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/electric-stove/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Fine Mesh Strainer",
+    "slug": "fine-mesh-strainer-57",
+    "description": "The Fine Mesh Strainer is a versatile tool for straining liquids and sifting dry ingredients. Its fine mesh ensures efficient filtering for smooth cooking and baking.",
+    "price": 9.99,
+    "stock": 85,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/fine-mesh-strainer/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Fork",
+    "slug": "fork-58",
+    "description": "The Fork is a classic utensil for various dining and serving purposes. Its durable and ergonomic design makes it a reliable choice for everyday use.",
+    "price": 3.99,
+    "stock": 7,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/fork/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Glass",
+    "slug": "glass-59",
+    "description": "The Glass is a versatile and elegant drinking vessel suitable for a variety of beverages. Its clear design allows you to enjoy the colors and textures of your drinks.",
+    "price": 4.99,
+    "stock": 46,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/glass/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Grater Black",
+    "slug": "grater-black-60",
+    "description": "The Grater in Black is a handy kitchen tool for grating cheese, vegetables, and more. Its sleek design and sharp blades make food preparation efficient and easy.",
+    "price": 10.99,
+    "stock": 84,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/grater-black/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Hand Blender",
+    "slug": "hand-blender-61",
+    "description": "The Hand Blender is a versatile kitchen appliance for blending, pureeing, and mixing. Its compact design and powerful motor make it a convenient tool for various recipes.",
+    "price": 34.99,
+    "stock": 84,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/hand-blender/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Ice Cube Tray",
+    "slug": "ice-cube-tray-62",
+    "description": "The Ice Cube Tray is a practical accessory for making ice cubes in various shapes. Perfect for keeping your drinks cool and adding a fun element to your beverages.",
+    "price": 5.99,
+    "stock": 13,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/ice-cube-tray/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Kitchen Sieve",
+    "slug": "kitchen-sieve-63",
+    "description": "The Kitchen Sieve is a versatile tool for sifting and straining dry and wet ingredients. Its fine mesh design ensures smooth results in your cooking and baking.",
+    "price": 7.99,
+    "stock": 68,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/kitchen-sieve/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Knife",
+    "slug": "knife-64",
+    "description": "The Knife is an essential kitchen tool for chopping, slicing, and dicing. Its sharp blade and ergonomic handle make it a reliable choice for food preparation.",
+    "price": 14.99,
+    "stock": 7,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/knife/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Lunch Box",
+    "slug": "lunch-box-65",
+    "description": "The Lunch Box is a convenient and portable container for packing and carrying your meals. With compartments for different foods, it's perfect for on-the-go dining.",
+    "price": 12.99,
+    "stock": 94,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/lunch-box/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Microwave Oven",
+    "slug": "microwave-oven-66",
+    "description": "The Microwave Oven is a versatile kitchen appliance for quick and efficient cooking, reheating, and defrosting. Its compact size makes it suitable for various kitchen setups.",
+    "price": 89.99,
+    "stock": 59,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/microwave-oven/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Mug Tree Stand",
+    "slug": "mug-tree-stand-67",
+    "description": "The Mug Tree Stand is a stylish and space-saving solution for organizing your mugs. Keep your favorite mugs easily accessible and neatly displayed in your kitchen.",
+    "price": 15.99,
+    "stock": 88,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/mug-tree-stand/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Pan",
+    "slug": "pan-68",
+    "description": "The Pan is a versatile and essential cookware item for frying, sautéing, and cooking various dishes. Its non-stick coating ensures easy food release and cleanup.",
+    "price": 24.99,
+    "stock": 90,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/pan/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Plate",
+    "slug": "plate-69",
+    "description": "The Plate is a classic and essential dishware item for serving meals. Its durable and stylish design makes it suitable for everyday use or special occasions.",
+    "price": 3.99,
+    "stock": 66,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/plate/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Red Tongs",
+    "slug": "red-tongs-70",
+    "description": "The Red Tongs are versatile kitchen tongs suitable for various cooking and serving tasks. Their vibrant color adds a pop of excitement to your kitchen utensils.",
+    "price": 6.99,
+    "stock": 82,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/red-tongs/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Silver Pot With Glass Cap",
+    "slug": "silver-pot-with-glass-cap-71",
+    "description": "The Silver Pot with Glass Cap is a stylish and functional cookware item for boiling, simmering, and preparing delicious meals. Its glass cap allows you to monitor cooking progress.",
+    "price": 39.99,
+    "stock": 40,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/silver-pot-with-glass-cap/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Slotted Turner",
+    "slug": "slotted-turner-72",
+    "description": "The Slotted Turner is a kitchen utensil designed for flipping and turning food items. Its slotted design allows excess liquid to drain, making it ideal for frying and sautéing.",
+    "price": 8.99,
+    "stock": 88,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/slotted-turner/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Spice Rack",
+    "slug": "spice-rack-73",
+    "description": "The Spice Rack is a convenient organizer for your spices and seasonings. Keep your kitchen essentials within reach and neatly arranged with this stylish spice rack.",
+    "price": 19.99,
+    "stock": 79,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/spice-rack/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Spoon",
+    "slug": "spoon-74",
+    "description": "The Spoon is a versatile kitchen utensil for stirring, serving, and tasting. Its ergonomic design and durable construction make it an essential tool for every kitchen.",
+    "price": 4.99,
+    "stock": 59,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/spoon/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Tray",
+    "slug": "tray-75",
+    "description": "The Tray is a functional and decorative item for serving snacks, appetizers, or drinks. Its stylish design makes it a versatile accessory for entertaining guests.",
+    "price": 16.99,
+    "stock": 71,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/tray/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Wooden Rolling Pin",
+    "slug": "wooden-rolling-pin-76",
+    "description": "The Wooden Rolling Pin is a classic kitchen tool for rolling out dough for baking. Its smooth surface and sturdy handles make it easy to achieve uniform thickness.",
+    "price": 11.99,
+    "stock": 80,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/wooden-rolling-pin/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Yellow Peeler",
+    "slug": "yellow-peeler-77",
+    "description": "The Yellow Peeler is a handy tool for peeling fruits and vegetables with ease. Its bright yellow color adds a cheerful touch to your kitchen gadgets.",
+    "price": 5.99,
+    "stock": 35,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/kitchen-accessories/yellow-peeler/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "kitchen-accessories"
+    ]
+  },
+  {
+    "name": "Apple MacBook Pro 14 Inch Space Grey",
+    "slug": "apple-macbook-pro-14-inch-space-grey-78",
+    "description": "The MacBook Pro 14 Inch in Space Grey is a powerful and sleek laptop, featuring Apple's M1 Pro chip for exceptional performance and a stunning Retina display.",
+    "price": 1999.99,
+    "stock": 24,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "laptops"
+    ]
+  },
+  {
+    "name": "Asus Zenbook Pro Dual Screen Laptop",
+    "slug": "asus-zenbook-pro-dual-screen-laptop-79",
+    "description": "The Asus Zenbook Pro Dual Screen Laptop is a high-performance device with dual screens, providing productivity and versatility for creative professionals.",
+    "price": 1799.99,
+    "stock": 45,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/laptops/asus-zenbook-pro-dual-screen-laptop/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "laptops"
+    ]
+  },
+  {
+    "name": "Huawei Matebook X Pro",
+    "slug": "huawei-matebook-x-pro-80",
+    "description": "The Huawei Matebook X Pro is a slim and stylish laptop with a high-resolution touchscreen display, offering a premium experience for users on the go.",
+    "price": 1399.99,
+    "stock": 75,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "laptops"
+    ]
+  },
+  {
+    "name": "Lenovo Yoga 920",
+    "slug": "lenovo-yoga-920-81",
+    "description": "The Lenovo Yoga 920 is a 2-in-1 convertible laptop with a flexible hinge, allowing you to use it as a laptop or tablet, offering versatility and portability.",
+    "price": 1099.99,
+    "stock": 40,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/laptops/lenovo-yoga-920/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "laptops"
+    ]
+  },
+  {
+    "name": "New DELL XPS 13 9300 Laptop",
+    "slug": "new-dell-xps-13-9300-laptop-82",
+    "description": "The New DELL XPS 13 9300 Laptop is a compact and powerful device, featuring a virtually borderless InfinityEdge display and high-end performance for various tasks.",
+    "price": 1499.99,
+    "stock": 74,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/laptops/new-dell-xps-13-9300-laptop/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "laptops"
+    ]
+  },
+  {
+    "name": "Blue & Black Check Shirt",
+    "slug": "blue-black-check-shirt-83",
+    "description": "The Blue & Black Check Shirt is a stylish and comfortable men's shirt featuring a classic check pattern. Made from high-quality fabric, it's suitable for both casual and semi-formal occasions.",
+    "price": 29.99,
+    "stock": 38,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-shirts/blue-&-black-check-shirt/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-shirts"
+    ]
+  },
+  {
+    "name": "Gigabyte Aorus Men Tshirt",
+    "slug": "gigabyte-aorus-men-tshirt-84",
+    "description": "The Gigabyte Aorus Men Tshirt is a cool and casual shirt for gaming enthusiasts. With the Aorus logo and sleek design, it's perfect for expressing your gaming style.",
+    "price": 24.99,
+    "stock": 90,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-shirts/gigabyte-aorus-men-tshirt/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-shirts"
+    ]
+  },
+  {
+    "name": "Man Plaid Shirt",
+    "slug": "man-plaid-shirt-85",
+    "description": "The Man Plaid Shirt is a timeless and versatile men's shirt with a classic plaid pattern. Its comfortable fit and casual style make it a wardrobe essential for various occasions.",
+    "price": 34.99,
+    "stock": 82,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-shirts/man-plaid-shirt/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-shirts"
+    ]
+  },
+  {
+    "name": "Man Short Sleeve Shirt",
+    "slug": "man-short-sleeve-shirt-86",
+    "description": "The Man Short Sleeve Shirt is a breezy and stylish option for warm days. With a comfortable fit and short sleeves, it's perfect for a laid-back yet polished look.",
+    "price": 19.99,
+    "stock": 2,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-shirts"
+    ]
+  },
+  {
+    "name": "Men Check Shirt",
+    "slug": "men-check-shirt-87",
+    "description": "The Men Check Shirt is a classic and versatile shirt featuring a stylish check pattern. Suitable for various occasions, it adds a smart and polished touch to your wardrobe.",
+    "price": 27.99,
+    "stock": 95,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-shirts/men-check-shirt/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-shirts"
+    ]
+  },
+  {
+    "name": "Nike Air Jordan 1 Red And Black",
+    "slug": "nike-air-jordan-1-red-and-black-88",
+    "description": "The Nike Air Jordan 1 in Red and Black is an iconic basketball sneaker known for its stylish design and high-performance features, making it a favorite among sneaker enthusiasts and athletes.",
+    "price": 149.99,
+    "stock": 7,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-shoes/nike-air-jordan-1-red-and-black/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-shoes"
+    ]
+  },
+  {
+    "name": "Nike Baseball Cleats",
+    "slug": "nike-baseball-cleats-89",
+    "description": "Nike Baseball Cleats are designed for maximum traction and performance on the baseball field. They provide stability and support for players during games and practices.",
+    "price": 79.99,
+    "stock": 12,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-shoes/nike-baseball-cleats/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-shoes"
+    ]
+  },
+  {
+    "name": "Puma Future Rider Trainers",
+    "slug": "puma-future-rider-trainers-90",
+    "description": "The Puma Future Rider Trainers offer a blend of retro style and modern comfort. Perfect for casual wear, these trainers provide a fashionable and comfortable option for everyday use.",
+    "price": 89.99,
+    "stock": 90,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-shoes/puma-future-rider-trainers/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-shoes"
+    ]
+  },
+  {
+    "name": "Sports Sneakers Off White & Red",
+    "slug": "sports-sneakers-off-white-red-91",
+    "description": "The Sports Sneakers in Off White and Red combine style and functionality, making them a fashionable choice for sports enthusiasts. The red and off-white color combination adds a bold and energetic touch.",
+    "price": 119.99,
+    "stock": 17,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-shoes/sports-sneakers-off-white-&-red/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-shoes"
+    ]
+  },
+  {
+    "name": "Sports Sneakers Off White Red",
+    "slug": "sports-sneakers-off-white-red-92",
+    "description": "Another variant of the Sports Sneakers in Off White Red, featuring a unique design. These sneakers offer style and comfort for casual occasions.",
+    "price": 109.99,
+    "stock": 62,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-shoes/sports-sneakers-off-white-red/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-shoes"
+    ]
+  },
+  {
+    "name": "Brown Leather Belt Watch",
+    "slug": "brown-leather-belt-watch-93",
+    "description": "The Brown Leather Belt Watch is a stylish timepiece with a classic design. Featuring a genuine leather strap and a sleek dial, it adds a touch of sophistication to your look.",
+    "price": 89.99,
+    "stock": 32,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-watches/brown-leather-belt-watch/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-watches"
+    ]
+  },
+  {
+    "name": "Longines Master Collection",
+    "slug": "longines-master-collection-94",
+    "description": "The Longines Master Collection is an elegant and refined watch known for its precision and craftsmanship. With a timeless design, it's a symbol of luxury and sophistication.",
+    "price": 1499.99,
+    "stock": 100,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-watches/longines-master-collection/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-watches"
+    ]
+  },
+  {
+    "name": "Rolex Cellini Date Black Dial",
+    "slug": "rolex-cellini-date-black-dial-95",
+    "description": "The Rolex Cellini Date with Black Dial is a classic and prestigious watch. With a black dial and date complication, it exudes sophistication and is a symbol of Rolex's heritage.",
+    "price": 8999.99,
+    "stock": 40,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-watches/rolex-cellini-date-black-dial/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-watches"
+    ]
+  },
+  {
+    "name": "Rolex Cellini Moonphase",
+    "slug": "rolex-cellini-moonphase-96",
+    "description": "The Rolex Cellini Moonphase is a masterpiece of horology, featuring a moon phase complication and exquisite design. It reflects Rolex's commitment to precision and elegance.",
+    "price": 12999.99,
+    "stock": 36,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-watches/rolex-cellini-moonphase/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-watches"
+    ]
+  },
+  {
+    "name": "Rolex Datejust",
+    "slug": "rolex-datejust-97",
+    "description": "The Rolex Datejust is an iconic and versatile timepiece with a date window. Known for its timeless design and reliability, it's a symbol of Rolex's watchmaking excellence.",
+    "price": 10999.99,
+    "stock": 86,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-watches/rolex-datejust/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-watches"
+    ]
+  },
+  {
+    "name": "Rolex Submariner Watch",
+    "slug": "rolex-submariner-watch-98",
+    "description": "The Rolex Submariner is a legendary dive watch with a rich history. Known for its durability and water resistance, it's a symbol of adventure and exploration.",
+    "price": 13999.99,
+    "stock": 55,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mens-watches/rolex-submariner-watch/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mens-watches"
+    ]
+  },
+  {
+    "name": "Amazon Echo Plus",
+    "slug": "amazon-echo-plus-99",
+    "description": "The Amazon Echo Plus is a smart speaker with built-in Alexa voice control. It features premium sound quality and serves as a hub for controlling smart home devices.",
+    "price": 99.99,
+    "stock": 61,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mobile-accessories/amazon-echo-plus/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mobile-accessories"
+    ]
+  },
+  {
+    "name": "Apple Airpods",
+    "slug": "apple-airpods-100",
+    "description": "The Apple Airpods offer a seamless wireless audio experience. With easy pairing, high-quality sound, and Siri integration, they are perfect for on-the-go listening.",
+    "price": 129.99,
+    "stock": 67,
+    "imageUrl": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods/thumbnail.webp",
+    "isActive": true,
+    "categorySlugs": [
+      "mobile-accessories"
+    ]
+  }
+]

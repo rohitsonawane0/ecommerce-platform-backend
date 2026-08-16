@@ -1,0 +1,56 @@
+{{- $svc := .Values.services.payment }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $svc.name }}
+  labels:
+    {{- include "ecommerce.labels" (dict "name" $svc.name "root" $) | nindent 4 }}
+spec:
+  replicas: {{ $svc.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $svc.name }}
+  template:
+    metadata:
+      labels:
+        {{- include "ecommerce.labels" (dict "name" $svc.name "root" $) | nindent 8 }}
+    spec:
+      {{- include "ecommerce.pullSecrets" . | nindent 6 }}
+      containers:
+        - name: {{ $svc.name }}
+          image: {{ include "ecommerce.image" (dict "svc" $svc "root" $) }}
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports:
+            - name: tcp
+              containerPort: {{ $svc.port }}
+            - name: health
+              containerPort: {{ $.Values.global.healthPort }}
+          env:
+            - name: SERVICE_PORT
+              value: {{ $svc.port | quote }}
+            - name: HEALTH_PORT
+              value: {{ $.Values.global.healthPort | quote }}
+            # payment-service has no database; it crashes at boot without STRIPE_KEY
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: stripe-key
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: health
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: health
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

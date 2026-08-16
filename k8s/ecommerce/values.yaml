@@ -1,0 +1,134 @@
+# Shared settings ------------------------------------------------------------
+global:
+  registry: asia-south1-docker.pkg.dev/distance-493706
+  # Built locally AND pushable to Artifact Registry; orbstack's kubelet resolves it
+  # from the local Docker store with IfNotPresent — no registry credentials needed.
+  tag: '0.2.0'
+  imagePullPolicy: IfNotPresent
+  # HTTP port the TCP microservices serve /health/live and /health/ready on.
+  # The gateway serves them on its own HTTP port instead.
+  healthPort: 8080
+  # Pulling from Artifact Registry outside GKE needs a pull secret, e.g.
+  #   imagePullSecrets:
+  #     - name: artifact-registry
+  imagePullSecrets: []
+
+# Name of the Secret holding passwords/keys. Create it out-of-band:
+#   kubectl create secret generic ecommerce-secrets \
+#     --from-literal=db-password='...' \
+#     --from-literal=jwt-secret='...' \
+#     --from-literal=jwt-refresh-secret='...' \
+#     --from-literal=stripe-key='sk_test_...'
+secretName: ecommerce-secrets
+
+# DATABASE — currently the LOCAL docker-compose Postgres containers.
+#
+# orbstack pods resolve host.docker.internal to the Mac, so they reach the
+# containers started by docker-compose-dev.yaml. Each service has its own
+# Postgres container on its own host port, set per-service as `dbPort` below;
+# this value is only the fallback.
+#
+#   docker compose -f docker-compose-dev.yaml up -d
+#
+# TO SWITCH TO CLOUD SQL:
+#   1. run the proxy:  cloud-sql-proxy --address 0.0.0.0 --port 5434 \
+#                        ecommerce-platform-rs:asia-south1:ecommerce-db
+#      (5434, not 5433 — postgres-auth already binds 5433 on the host)
+#   2. set username: ecom_app and port: '5434' here
+#   3. delete every per-service `dbPort` override below
+#   4. recreate ecommerce-secrets with the ecom_app password
+#   On GKE, use an in-cluster cloudsql-proxy Deployment instead of host.docker.internal.
+db:
+  host: host.docker.internal
+  port: '5433'
+  username: postgres
+
+# Redis — the docker-compose container on the host, same as the databases.
+# Set enabled: true to run Redis inside the cluster instead (see values-server.yaml).
+redis:
+  enabled: false
+  host: host.docker.internal
+  port: '6379'
+  image: redis:7-alpine
+  storage: 1Gi
+  storageClass: '' # '' = cluster default (local-path on k3s)
+  resources:
+    requests: { cpu: 25m, memory: 64Mi }
+    limits: { cpu: 250m, memory: 256Mi }
+
+# In-cluster Postgres: ONE instance holding all five databases, replacing the
+# five containers in docker-compose-dev.yaml. Off by default — locally the
+# compose containers are used instead.
+postgres:
+  enabled: false
+  image: postgres:16-alpine
+  storage: 10Gi
+  storageClass: '' # '' = cluster default (local-path on k3s)
+  resources:
+    requests: { cpu: 100m, memory: 256Mi }
+    limits: { cpu: 1000m, memory: 1Gi }
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# Per-service settings -------------------------------------------------------
+services:
+  apiGateway:
+    name: api-gateway
+    repo: api-gateway/api-gateway
+    port: 3000
+    replicas: 1
+    # LoadBalancer: orbstack exposes it on localhost:3000, no port-forward needed.
+    # Use ClusterIP on a cluster where you don't want it publicly reachable.
+    serviceType: NodePort
+
+  auth:
+    name: auth-service
+    repo: auth/auth-service
+    port: 3001
+    replicas: 1
+    dbName: auth_db
+    dbPort: '5433'
+
+  product:
+    name: product-service
+    repo: product/product-service
+    port: 3002
+    replicas: 1
+    dbName: product_db
+    dbPort: '5435'
+
+  cart:
+    name: cart-service
+    repo: cart/cart-service
+    port: 3003
+    replicas: 1
+    dbName: cart_db
+    dbPort: '5436'
+
+  orders:
+    name: orders-service
+    repo: order/orders-service
+    port: 3004
+    replicas: 1
+    dbName: order_db
+    dbPort: '5437'
+
+  payment:
+    name: payment-service
+    repo: payment/payment-service
+    port: 3005
+    replicas: 1
+
+  user:
+    name: user-service
+    repo: user/user-service
+    port: 3006
+    replicas: 1
+    dbName: user_db
+    dbPort: '5448'

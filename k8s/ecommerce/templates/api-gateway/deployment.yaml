@@ -1,0 +1,76 @@
+{{- $svc := .Values.services.apiGateway }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $svc.name }}
+  labels:
+    {{- include "ecommerce.labels" (dict "name" $svc.name "root" $) | nindent 4 }}
+spec:
+  replicas: {{ $svc.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $svc.name }}
+  template:
+    metadata:
+      labels:
+        {{- include "ecommerce.labels" (dict "name" $svc.name "root" $) | nindent 8 }}
+    spec:
+      {{- include "ecommerce.pullSecrets" . | nindent 6 }}
+      containers:
+        - name: {{ $svc.name }}
+          image: {{ include "ecommerce.image" (dict "svc" $svc "root" $) }}
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ $svc.port }}
+          env:
+            - name: GATEWAY_PORT
+              value: {{ $svc.port | quote }}
+            # Backends are reached through their ClusterIP Services by name.
+            - name: AUTH_SERVICE_HOST
+              value: {{ .Values.services.auth.name }}
+            - name: AUTH_SERVICE_PORT
+              value: {{ .Values.services.auth.port | quote }}
+            - name: PRODUCT_SERVICE_HOST
+              value: {{ .Values.services.product.name }}
+            - name: PRODUCT_SERVICE_PORT
+              value: {{ .Values.services.product.port | quote }}
+            - name: CART_SERVICE_HOST
+              value: {{ .Values.services.cart.name }}
+            - name: CART_SERVICE_PORT
+              value: {{ .Values.services.cart.port | quote }}
+            - name: ORDER_SERVICE_HOST
+              value: {{ .Values.services.orders.name }}
+            - name: ORDER_SERVICE_PORT
+              value: {{ .Values.services.orders.port | quote }}
+            - name: PAYMENT_SERVICE_HOST
+              value: {{ .Values.services.payment.name }}
+            - name: PAYMENT_SERVICE_PORT
+              value: {{ .Values.services.payment.port | quote }}
+            - name: USER_SERVICE_HOST
+              value: {{ .Values.services.user.name }}
+            - name: USER_SERVICE_PORT
+              value: {{ .Values.services.user.port | quote }}
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: jwt-secret
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

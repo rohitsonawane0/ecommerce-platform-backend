@@ -1,0 +1,147 @@
+# Cloud Build — builds and pushes all seven service images to Artifact Registry.
+#
+# Manual run:   gcloud builds submit --config cloudbuild.yaml --project=distance-493706
+# On push:      created as a GitHub trigger (see docs/guides/DOCKER_BUILD_DEPLOY.md §CI/CD)
+#
+# Every build uses the repo ROOT as context — each service imports @app/common from libs/.
+
+substitutions:
+  _REGISTRY: asia-south1-docker.pkg.dev
+  _TAG: latest # trigger overrides this with $SHORT_SHA
+
+options:
+  machineType: E2_HIGHCPU_8
+  logging: CLOUD_LOGGING_ONLY
+
+timeout: 3600s
+
+steps:
+  # ---- api-gateway ----
+  - id: api-gateway
+    name: gcr.io/cloud-builders/docker
+    waitFor: ['-'] # all builds start immediately, in parallel
+    args:
+      [
+        'build',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/api-gateway/api-gateway:${_TAG}',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/api-gateway/api-gateway:latest',
+        '-f',
+        'apps/api-gateway/Dockerfile',
+        '.',
+      ]
+
+  # ---- auth-service (repo: auth) ----
+  - id: auth-service
+    name: gcr.io/cloud-builders/docker
+    waitFor: ['-']
+    args:
+      [
+        'build',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/auth/auth-service:${_TAG}',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/auth/auth-service:latest',
+        '-f',
+        'apps/auth-service/Dockerfile',
+        '.',
+      ]
+
+  # ---- product-service (repo: product) ----
+  - id: product-service
+    name: gcr.io/cloud-builders/docker
+    waitFor: ['-']
+    args:
+      [
+        'build',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/product/product-service:${_TAG}',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/product/product-service:latest',
+        '-f',
+        'apps/product-service/Dockerfile',
+        '.',
+      ]
+
+  # ---- cart-service (repo: cart) ----
+  - id: cart-service
+    name: gcr.io/cloud-builders/docker
+    waitFor: ['-']
+    args:
+      [
+        'build',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/cart/cart-service:${_TAG}',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/cart/cart-service:latest',
+        '-f',
+        'apps/cart-service/Dockerfile',
+        '.',
+      ]
+
+  # ---- orders-service (repo: order — singular) ----
+  - id: orders-service
+    name: gcr.io/cloud-builders/docker
+    waitFor: ['-']
+    args:
+      [
+        'build',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/order/orders-service:${_TAG}',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/order/orders-service:latest',
+        '-f',
+        'apps/orders-service/Dockerfile',
+        '.',
+      ]
+
+  # ---- payment-service (repo: payment) ----
+  - id: payment-service
+    name: gcr.io/cloud-builders/docker
+    waitFor: ['-']
+    args:
+      [
+        'build',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/payment/payment-service:${_TAG}',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/payment/payment-service:latest',
+        '-f',
+        'apps/payment-service/Dockerfile',
+        '.',
+      ]
+
+  # ---- user-service (repo: user) ----
+  - id: user-service
+    name: gcr.io/cloud-builders/docker
+    waitFor: ['-']
+    args:
+      [
+        'build',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/user/user-service:${_TAG}',
+        '-t',
+        '${_REGISTRY}/${PROJECT_ID}/user/user-service:latest',
+        '-f',
+        'apps/user-service/Dockerfile',
+        '.',
+      ]
+
+# Cloud Build pushes every tag listed here after all steps succeed.
+# A failed build pushes nothing — the registry never holds a half-broken set.
+images:
+  - '${_REGISTRY}/${PROJECT_ID}/api-gateway/api-gateway:${_TAG}'
+  - '${_REGISTRY}/${PROJECT_ID}/api-gateway/api-gateway:latest'
+  - '${_REGISTRY}/${PROJECT_ID}/auth/auth-service:${_TAG}'
+  - '${_REGISTRY}/${PROJECT_ID}/auth/auth-service:latest'
+  - '${_REGISTRY}/${PROJECT_ID}/product/product-service:${_TAG}'
+  - '${_REGISTRY}/${PROJECT_ID}/product/product-service:latest'
+  - '${_REGISTRY}/${PROJECT_ID}/cart/cart-service:${_TAG}'
+  - '${_REGISTRY}/${PROJECT_ID}/cart/cart-service:latest'
+  - '${_REGISTRY}/${PROJECT_ID}/order/orders-service:${_TAG}'
+  - '${_REGISTRY}/${PROJECT_ID}/order/orders-service:latest'
+  - '${_REGISTRY}/${PROJECT_ID}/payment/payment-service:${_TAG}'
+  - '${_REGISTRY}/${PROJECT_ID}/payment/payment-service:latest'
+  - '${_REGISTRY}/${PROJECT_ID}/user/user-service:${_TAG}'
+  - '${_REGISTRY}/${PROJECT_ID}/user/user-service:latest'

@@ -1,15 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { RpcException } from '@nestjs/microservices';
 import Redis from 'ioredis';
-import { Inject } from '@nestjs/common';
-
-export interface JwtPayload {
-  id: string;
-  email: string;
-  role: string;
-}
+import { JwtPayload } from '@app/common';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {

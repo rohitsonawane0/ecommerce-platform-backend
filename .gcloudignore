@@ -1,0 +1,22 @@
+# What NOT to upload to Cloud Build as build source.
+# Without this, gcloud falls back to .gitignore — this is explicit and keeps the
+# source tarball small, which directly affects build start time.
+
+.git
+.gitignore
+node_modules
+dist
+build
+coverage
+.env
+.env.*
+*.log
+.DS_Store
+.idea
+.vscode
+.cursor
+.claude
+context
+docs
+data
+scratch.ts

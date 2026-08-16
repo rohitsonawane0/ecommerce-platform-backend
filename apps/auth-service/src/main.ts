@@ -1,12 +1,30 @@
 import { NestFactory } from '@nestjs/core';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { AllRpcExceptionsFilter } from '@app/common';
 import { AuthServiceModule } from './auth-service.module';
-import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice(AuthServiceModule, {
+  // Hybrid app: TCP for inter-service messaging, plus a small HTTP server that
+  // serves /health/live and /health/ready for the Kubernetes probes.
+  const app = await NestFactory.create(AuthServiceModule);
+
+  app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.TCP,
-    options: { host: 'localhost', port: 3001 },
+    options: {
+      host: process.env.SERVICE_HOST || '0.0.0.0',
+      port: parseInt(process.env.SERVICE_PORT || '3001', 10),
+    },
   });
-  await app.listen();
+
+  app.useGlobalFilters(new AllRpcExceptionsFilter());
+  app.enableShutdownHooks();
+
+  await app.startAllMicroservices();
+
+  const healthPort = parseInt(process.env.HEALTH_PORT || '8080', 10);
+  await app.listen(healthPort, '0.0.0.0');
+  console.log(
+    `auth-service TCP on ${process.env.SERVICE_PORT || '3001'}, health on ${healthPort}`,
+  );
 }
 bootstrap();
