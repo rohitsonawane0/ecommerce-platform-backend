@@ -120,12 +120,16 @@ Two things to note:
 
 `package.json`:
 
+**Already added to `package.json`** — one `typeorm` runner plus five commands each for
+`auth`, `product`, `cart`, `order`, `user`:
+
 ```json
 {
   "scripts": {
     "typeorm": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' node -r ts-node/register -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
 
-    "mig:gen:auth":    "pnpm typeorm migration:generate apps/auth-service/src/migrations/$npm_config_name -d apps/auth-service/src/data-source.ts",
+    "mig:gen:auth":    "pnpm typeorm migration:generate -d apps/auth-service/src/data-source.ts",
+    "mig:create:auth": "pnpm typeorm migration:create",
     "mig:run:auth":    "pnpm typeorm migration:run    -d apps/auth-service/src/data-source.ts",
     "mig:revert:auth": "pnpm typeorm migration:revert -d apps/auth-service/src/data-source.ts",
     "mig:show:auth":   "pnpm typeorm migration:show   -d apps/auth-service/src/data-source.ts"
@@ -133,7 +137,15 @@ Two things to note:
 }
 ```
 
-…and the same four for `product`, `cart`, `order`, `user`.
+The output path is passed as a positional argument rather than baked in, because TypeORM takes
+it positionally and it changes per migration:
+
+```bash
+pnpm mig:gen:auth apps/auth-service/src/migrations/InitialSchema
+pnpm mig:show:auth
+```
+
+**Verified working** — all five `mig:show:*` connect to their databases successfully.
 
 `TS_NODE_COMPILER_OPTIONS` is not optional: the root `tsconfig.json` sets
 `"module": "nodenext"`, which ts-node cannot execute directly for the CLI. Overriding to
@@ -157,19 +169,31 @@ grep -rn "synchronize" apps/ | grep -v node_modules
 
 ---
 
-## Step 4 — Generate the initial migration
+## Step 4 — Drop first, then generate
 
-The databases must be **running** — `migration:generate` connects and diffs the live schema
-against the entities.
+> **Order matters, and it's the opposite of what you'd expect.**
+> `migration:generate` emits the *diff* between the entities and the **live** schema. Your
+> databases were already built by `synchronize`, so they match the entities exactly and the
+> CLI correctly reports:
+>
+> ```
+> No changes in database schema were found - cannot generate a migration.
+> ```
+>
+> To get a full initial schema you must diff against an **empty** database. So drop first,
+> then generate, then run.
+
+**Local:**
 
 ```bash
-docker compose -f docker-compose-dev.yaml up -d
+docker compose -f docker-compose-dev.yaml down -v    # deletes the volumes
+docker compose -f docker-compose-dev.yaml up -d      # empty databases
 
-pnpm mig:gen:auth --name=InitialSchema
-pnpm mig:gen:product --name=InitialSchema
-pnpm mig:gen:cart --name=InitialSchema
-pnpm mig:gen:order --name=InitialSchema
-pnpm mig:gen:user --name=InitialSchema
+pnpm mig:gen:auth    apps/auth-service/src/migrations/InitialSchema
+pnpm mig:gen:product apps/product-service/src/migrations/InitialSchema
+pnpm mig:gen:cart    apps/cart-service/src/migrations/InitialSchema
+pnpm mig:gen:order   apps/orders-service/src/migrations/InitialSchema
+pnpm mig:gen:user    apps/user-service/src/migrations/InitialSchema
 ```
 
 Each writes `apps/<svc>/src/migrations/<timestamp>-InitialSchema.ts`. **Import each one into
@@ -188,16 +212,11 @@ This is the habit that makes migrations worth having. Check specifically:
 
 ---
 
-## Step 5 — Drop and recreate
+## Step 5 — Apply them
 
-Because the existing schemas were built by `synchronize`, they may not match what the migration
-expects. Start clean (seed data is reproducible from `data/*.json`):
-
-**Local:**
+The databases are still empty from step 4 — generating a migration does not run it.
 
 ```bash
-docker compose -f docker-compose-dev.yaml down -v   # deletes the volumes
-docker compose -f docker-compose-dev.yaml up -d
 pnpm mig:run:auth && pnpm mig:run:product && pnpm mig:run:cart \
   && pnpm mig:run:order && pnpm mig:run:user
 ```
