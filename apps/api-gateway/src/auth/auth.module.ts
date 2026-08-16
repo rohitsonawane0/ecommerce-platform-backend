@@ -9,10 +9,14 @@ import { AUTH_SERVICE } from '@app/common';
       {
         name: AUTH_SERVICE,
         transport: Transport.TCP,
-        options: { host: 'localhost', port: 3001 },
+        options: {
+          host: process.env.AUTH_SERVICE_HOST || 'localhost',
+          port: parseInt(process.env.AUTH_SERVICE_PORT || '3001', 10),
+        },
       },
     ]),
   ],
   controllers: [AuthController],
 })
 export class AuthModule {}
+//d

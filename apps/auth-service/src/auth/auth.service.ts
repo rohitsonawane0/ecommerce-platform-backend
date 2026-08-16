@@ -11,9 +11,7 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { LocalStrategy } from './strategies/local.strategy';
-import { JwtStrategy, JwtPayload } from './strategies/jwt.strategy';
-import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
+import { JwtPayload } from '@app/common';
 
 @Injectable()
 export class AuthService {
@@ -23,9 +21,6 @@ export class AuthService {
     private readonly jwtService: JwtService,
     @Inject('REDIS_CLIENT')
     private readonly redis: Redis,
-    private readonly localStrategy: LocalStrategy,
-    private readonly jwtStrategy: JwtStrategy,
-    private readonly jwtRefreshStrategy: JwtRefreshStrategy,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -57,7 +52,7 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto) {
-    const user = await this.localStrategy.validate(
+    const user = await this.validateCredentials(
       loginDto.email,
       loginDto.password,
     );
@@ -70,10 +65,25 @@ export class AuthService {
   }
 
   async refresh(refreshToken: string) {
-    const payload = await this.jwtRefreshStrategy.validate(
-      { refreshToken },
-      this.jwtService.decode(refreshToken),
-    );
+    let payload: JwtPayload;
+    try {
+      payload = this.jwtService.verify<JwtPayload>(refreshToken, {
+        secret: process.env.JWT_REFRESH_SECRET || 'jwt-refresh-secret',
+      });
+    } catch {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired refresh token',
+      });
+    }
+
+    const isBlacklisted = await this.redis.get(`bl:${refreshToken}`);
+    if (isBlacklisted) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Refresh token has been revoked',
+      });
+    }
 
     await this.blacklistToken(refreshToken);
 
@@ -84,8 +94,7 @@ export class AuthService {
       throw new RpcException({ statusCode: 401, message: 'User not found' });
     }
 
-    const tokens = await this.generateTokens(user);
-    return tokens;
+    return this.generateTokens(user);
   }
 
   async logout(accessToken: string) {
@@ -155,15 +164,41 @@ export class AuthService {
   }
 
   async validateToken(token: string) {
+    let payload: JwtPayload;
     try {
-      const decoded = this.jwtService.verify(token);
-      return await this.jwtStrategy.validate({ token }, decoded as JwtPayload);
+      payload = this.jwtService.verify<JwtPayload>(token, {
+        secret: process.env.JWT_SECRET || 'jwt-secret',
+      });
     } catch {
       throw new RpcException({
         statusCode: 401,
         message: 'Invalid or expired token',
       });
     }
+
+    const isBlacklisted = await this.redis.get(`bl:${token}`);
+    if (isBlacklisted) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Token has been revoked',
+      });
+    }
+
+    return { id: payload.id, email: payload.email, role: payload.role };
+  }
+
+  private async validateCredentials(
+    email: string,
+    password: string,
+  ): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid credentials',
+      });
+    }
+    return user;
   }
 
   private async generateTokens(user: User) {

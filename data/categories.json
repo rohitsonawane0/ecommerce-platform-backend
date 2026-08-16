@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Beauty",
+    "slug": "beauty",
+    "description": "Quality items from the beauty collection."
+  },
+  {
+    "name": "Fragrances",
+    "slug": "fragrances",
+    "description": "Quality items from the fragrances collection."
+  },
+  {
+    "name": "Furniture",
+    "slug": "furniture",
+    "description": "Quality items from the furniture collection."
+  },
+  {
+    "name": "Groceries",
+    "slug": "groceries",
+    "description": "Quality items from the groceries collection."
+  },
+  {
+    "name": "Home decoration",
+    "slug": "home-decoration",
+    "description": "Quality items from the home-decoration collection."
+  },
+  {
+    "name": "Kitchen accessories",
+    "slug": "kitchen-accessories",
+    "description": "Quality items from the kitchen-accessories collection."
+  },
+  {
+    "name": "Laptops",
+    "slug": "laptops",
+    "description": "Quality items from the laptops collection."
+  },
+  {
+    "name": "Mens shirts",
+    "slug": "mens-shirts",
+    "description": "Quality items from the mens-shirts collection."
+  },
+  {
+    "name": "Mens shoes",
+    "slug": "mens-shoes",
+    "description": "Quality items from the mens-shoes collection."
+  },
+  {
+    "name": "Mens watches",
+    "slug": "mens-watches",
+    "description": "Quality items from the mens-watches collection."
+  },
+  {
+    "name": "Mobile accessories",
+    "slug": "mobile-accessories",
+    "description": "Quality items from the mobile-accessories collection."
+  }
+]

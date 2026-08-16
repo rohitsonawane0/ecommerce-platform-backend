@@ -1,0 +1,93 @@
+{{- if .Values.postgres.enabled }}
+{{/*
+  ONE Postgres holding all five databases, replacing the five separate
+  containers in docker-compose-dev.yaml. Same logical isolation (no
+  cross-database joins), ~1/5 the memory.
+
+  The init script only runs on FIRST boot, when the data directory is empty.
+  To re-run it you must delete the PVC.
+*/}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init
+  labels:
+    {{- include "ecommerce.labels" (dict "name" "postgres" "root" $) | nindent 4 }}
+data:
+  init-databases.sql: |
+    -- auth_db is created by POSTGRES_DB; the rest are created here.
+    CREATE DATABASE product_db;
+    CREATE DATABASE cart_db;
+    CREATE DATABASE order_db;
+    CREATE DATABASE user_db;
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  labels:
+    {{- include "ecommerce.labels" (dict "name" "postgres" "root" $) | nindent 4 }}
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        {{- include "ecommerce.labels" (dict "name" "postgres" "root" $) | nindent 8 }}
+    spec:
+      containers:
+        - name: postgres
+          image: {{ .Values.postgres.image }}
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: auth_db
+            - name: POSTGRES_USER
+              value: {{ .Values.db.username }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: db-password
+            # Keep the data one level down: the mount root holds lost+found,
+            # which makes initdb refuse to run.
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+            - name: init
+              mountPath: /docker-entrypoint-initdb.d
+          livenessProbe:
+            exec:
+              command: ['pg_isready', '-U', '{{ .Values.db.username }}']
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          readinessProbe:
+            exec:
+              command: ['pg_isready', '-U', '{{ .Values.db.username }}']
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.postgres.resources | nindent 12 }}
+      volumes:
+        - name: init
+          configMap:
+            name: postgres-init
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ['ReadWriteOnce']
+        {{- with .Values.postgres.storageClass }}
+        storageClassName: {{ . }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.postgres.storage }}
+{{- end }}

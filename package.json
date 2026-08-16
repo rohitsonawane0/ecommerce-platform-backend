@@ -8,7 +8,12 @@
   "scripts": {
     "start:gateway": "nest start api-gateway --watch",
     "start:auth": "nest start auth-service --watch",
-    "start:all": "concurrently \"pnpm run start:gateway\" \"pnpm run start:auth\"",
+    "start:product": "nest start product-service --watch",
+    "start:cart": "nest start cart-service --watch",
+    "start:orders": "nest start orders-service --watch",
+    "start:payments": "nest start payment-service --watch",
+    "start:user": "nest start user-service --watch",
+    "start:all": "concurrently \"pnpm run start:gateway\" \"pnpm run start:auth\" \"pnpm run start:product\" \"pnpm run start:cart\" \"pnpm run start:orders\" \"pnpm run start:payments\" \"pnpm run start:user\"",
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
@@ -45,7 +50,10 @@
     "pg": "^8.20.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.28"
+    "slugify": "^1.6.8",
+    "stripe": "^22.1.1",
+    "typeorm": "^0.3.28",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
