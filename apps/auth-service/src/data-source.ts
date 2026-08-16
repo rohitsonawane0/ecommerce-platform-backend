@@ -4,26 +4,33 @@ import { User } from './auth/entities/user.entity';
 /**
  * Single source of truth for auth-service's database connection.
  *
- * Used two ways:
- *   - `TypeOrmModule.forRoot(authDataSourceOptions)` at runtime
- *   - `typeorm -d apps/auth-service/src/data-source.ts` for the migration CLI
+ * Read through an injected getter rather than `process.env` directly, so the
+ * same definition serves both callers:
+ *   - Nest passes ConfigService.get  (loads .env via ConfigModule)
+ *   - the TypeORM CLI passes process.env, since DI does not exist there
  *
  * Entities and migrations are imported EXPLICITLY, never via glob: nest-cli
  * builds with webpack, so there are no individual .entity.js files on disk for
- * a glob to match. Every new migration must be added to the array below or the
- * CLI will not see it.
+ * a glob to match. Every new migration must be added to the array below.
  */
-export const authDataSourceOptions: DataSourceOptions = {
+export type EnvGetter = (key: string) => string | undefined;
+
+const fromProcessEnv: EnvGetter = (key) => process.env[key];
+
+export const buildAuthDataSourceOptions = (
+  get: EnvGetter = fromProcessEnv,
+): DataSourceOptions => ({
   type: 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '5433', 10),
-  username: process.env.DB_USERNAME || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres',
-  database: process.env.DB_NAME || 'auth_db',
+  host: get('DB_HOST') || 'localhost',
+  port: parseInt(get('DB_PORT') || '5433', 10),
+  username: get('DB_USERNAME') || 'postgres',
+  password: get('DB_PASSWORD') || 'postgres',
+  database: get('DB_NAME') || 'auth_db',
   entities: [User],
   migrations: [],
   synchronize: false,
   migrationsRun: false,
-};
+});
 
-export default new DataSource(authDataSourceOptions);
+// Default export is what `typeorm -d apps/auth-service/src/data-source.ts` loads.
+export default new DataSource(buildAuthDataSourceOptions());

@@ -1,15 +1,20 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { HealthModule } from '@app/common';
-import { authDataSourceOptions } from './data-source';
+import { buildAuthDataSourceOptions } from './data-source';
 
 @Module({
   imports: [
     HealthModule,
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot(authDataSourceOptions),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) =>
+        buildAuthDataSourceOptions((key) => config.get<string>(key)),
+    }),
     AuthModule,
   ],
 })

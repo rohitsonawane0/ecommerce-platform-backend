@@ -4,20 +4,34 @@ import { CartItem } from './cart/entities/cart-item.entity';
 
 /**
  * Single source of truth for cart-service's database connection.
- * See apps/auth-service/src/data-source.ts for why entities and migrations are
- * imported explicitly rather than globbed.
+ *
+ * Read through an injected getter rather than `process.env` directly, so the
+ * same definition serves both callers:
+ *   - Nest passes ConfigService.get  (loads .env via ConfigModule)
+ *   - the TypeORM CLI passes process.env, since DI does not exist there
+ *
+ * Entities and migrations are imported EXPLICITLY, never via glob: nest-cli
+ * builds with webpack, so there are no individual .entity.js files on disk for
+ * a glob to match. Every new migration must be added to the array below.
  */
-export const cartDataSourceOptions: DataSourceOptions = {
+export type EnvGetter = (key: string) => string | undefined;
+
+const fromProcessEnv: EnvGetter = (key) => process.env[key];
+
+export const buildCartDataSourceOptions = (
+  get: EnvGetter = fromProcessEnv,
+): DataSourceOptions => ({
   type: 'postgres',
-  host: process.env.CART_DB_HOST || 'localhost',
-  port: parseInt(process.env.CART_DB_PORT || '5436', 10),
-  username: process.env.CART_DB_USERNAME || 'postgres',
-  password: process.env.CART_DB_PASSWORD || 'postgres',
-  database: process.env.CART_DB_NAME || 'cart_db',
+  host: get('CART_DB_HOST') || 'localhost',
+  port: parseInt(get('CART_DB_PORT') || '5436', 10),
+  username: get('CART_DB_USERNAME') || 'postgres',
+  password: get('CART_DB_PASSWORD') || 'postgres',
+  database: get('CART_DB_NAME') || 'cart_db',
   entities: [Cart, CartItem],
   migrations: [],
   synchronize: false,
   migrationsRun: false,
-};
+});
 
-export default new DataSource(cartDataSourceOptions);
+// Default export is what `typeorm -d apps/cart-service/src/data-source.ts` loads.
+export default new DataSource(buildCartDataSourceOptions());

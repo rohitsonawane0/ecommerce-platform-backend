@@ -3,20 +3,34 @@ import { Address } from './addresses/address.entity';
 
 /**
  * Single source of truth for user-service's database connection.
- * See apps/auth-service/src/data-source.ts for why entities and migrations are
- * imported explicitly rather than globbed.
+ *
+ * Read through an injected getter rather than `process.env` directly, so the
+ * same definition serves both callers:
+ *   - Nest passes ConfigService.get  (loads .env via ConfigModule)
+ *   - the TypeORM CLI passes process.env, since DI does not exist there
+ *
+ * Entities and migrations are imported EXPLICITLY, never via glob: nest-cli
+ * builds with webpack, so there are no individual .entity.js files on disk for
+ * a glob to match. Every new migration must be added to the array below.
  */
-export const userDataSourceOptions: DataSourceOptions = {
+export type EnvGetter = (key: string) => string | undefined;
+
+const fromProcessEnv: EnvGetter = (key) => process.env[key];
+
+export const buildUserDataSourceOptions = (
+  get: EnvGetter = fromProcessEnv,
+): DataSourceOptions => ({
   type: 'postgres',
-  host: process.env.USER_DB_HOST || 'localhost',
-  port: parseInt(process.env.USER_DB_PORT || '5448', 10),
-  username: process.env.USER_DB_USERNAME || 'postgres',
-  password: process.env.USER_DB_PASSWORD || 'postgres',
-  database: process.env.USER_DB_NAME || 'user_db',
+  host: get('USER_DB_HOST') || 'localhost',
+  port: parseInt(get('USER_DB_PORT') || '5448', 10),
+  username: get('USER_DB_USERNAME') || 'postgres',
+  password: get('USER_DB_PASSWORD') || 'postgres',
+  database: get('USER_DB_NAME') || 'user_db',
   entities: [Address],
   migrations: [],
   synchronize: false,
   migrationsRun: false,
-};
+});
 
-export default new DataSource(userDataSourceOptions);
+// Default export is what `typeorm -d apps/user-service/src/data-source.ts` loads.
+export default new DataSource(buildUserDataSourceOptions());
