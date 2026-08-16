@@ -81,10 +81,48 @@ So don't push the image sitting on your laptop — build for the target platform
 Use `linux/arm64` for an ARM server (Graviton, Ampere), or `linux/amd64,linux/arm64` for a
 multi-arch manifest that runs on both.
 
-### Artifact Registry (primary)
+### Docker Hub (primary)
 
-Images live in GCP project **`distance-493706`**, region `asia-south1`, one repository per
-service.
+This is what the Helm chart points at. Namespace **`rohitf116`**, repositories **public** —
+which means no cluster anywhere needs a pull secret to run these images.
+
+Docker Hub paths are **flat**: `<namespace>/<image>:<tag>`. There is no repository nesting
+like Artifact Registry has, so the image name is just the app directory name:
+
+```
+docker.io/rohitf116/auth-service:0.2.0
+└─ host ─┘└namespace┘└── image ──┘└tag┘
+```
+
+Push everything with the script:
+
+```bash
+docker login                        # one time, as rohitf116
+./scripts/push-images.sh            # all 7, tag 0.2.0, linux/amd64
+TAG=0.3.0 ./scripts/push-images.sh  # a different tag
+./scripts/push-images.sh auth-service product-service   # just some
+```
+
+It creates a `docker-container` buildx builder (`ecom-builder`) on first run, because the
+default `docker` driver cannot reliably cross-build *and* push in one step. Each service is
+tagged twice — the version and `latest`.
+
+Override the target with env vars: `DOCKERHUB_NAMESPACE`, `TAG`, `PLATFORM`, `BUILDER`.
+
+Verify a push landed:
+
+```bash
+docker buildx imagetools inspect docker.io/rohitf116/auth-service:0.2.0
+```
+
+Keep `global.registry` / `global.tag` in `k8s/ecommerce/values.yaml` in sync with what you
+pushed — that is what the chart renders into every `image:` field.
+
+### Artifact Registry (alternative)
+
+The chart used to point here. Images live in GCP project **`distance-493706`**, region
+`asia-south1`, one repository per service. It is **private**, so any cluster outside GCP
+needs an `imagePullSecrets` entry — see `global.imagePullSecrets` in `values.yaml`.
 
 One-time Docker credential setup:
 
@@ -154,19 +192,6 @@ Don't omit the trailing `.` — that's the build context.
 > `ecommerce-platform-rs`. That works, but a Cloud Run service in one project pulling images
 > from the other needs `roles/artifactregistry.reader` granted on `distance-493706`. Keeping
 > both in a single project avoids the extra IAM grant.
-
-### Docker Hub (alternative)
-
-Username `rohitf116`:
-
-```bash
-docker login
-docker buildx build --platform linux/amd64 \
-  -f apps/auth-service/Dockerfile \
-  -t rohitf116/auth-service:0.1.0 \
-  -t rohitf116/auth-service:latest \
-  --push .
-```
 
 ### GHCR (alternative)
 

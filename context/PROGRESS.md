@@ -47,7 +47,7 @@ the gateway's own port for the gateway) — see [Containerization & Kubernetes](
 | Orders Service         | Working     | 85%  |
 | API Gateway            | Working     | 85%  |
 | Common Library         | Working     | 95%  |
-| Containerization / K8s | Partial     | 60%  |
+| Containerization / K8s | Partial     | 75%  |
 | User Service           | Partial     | 45%  |
 | Payment Service        | Partial     | 40%  |
 | Security               | Partial     | 60%  |
@@ -244,7 +244,10 @@ Scoped to **addresses only** so far. No user profiles, no preferences.
 
 ## Containerization & Kubernetes
 
-**NEW since the last update.** The stack now runs on Kubernetes locally. It is **not** hosted in the cloud.
+The stack runs on Kubernetes locally (orbstack) **and** on a rented server (Hetzner + k3s).
+It is not on a managed cloud Kubernetes service — that was evaluated and rejected on cost
+(see `docs/guides/GCP_COST_ESTIMATE.md`: ~$46/mo on GKE vs ~$5/mo on Hetzner, where GKE's
+load balancer alone costs more than the entire server).
 
 ### Done
 
@@ -252,22 +255,44 @@ Scoped to **addresses only** so far. No user profiles, no preferences.
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | Dockerfiles             | All 7 services (`apps/*/Dockerfile`). Repo root is the build context so `@app/common` resolves                                |
 | `.dockerignore` / `.gcloudignore` | Added                                                                                                               |
-| Cloud Build             | `cloudbuild.yaml` builds all 7 images in parallel (`waitFor: ['-']`), pushes to Artifact Registry `asia-south1-docker.pkg.dev`. Tagged `$SHORT_SHA` + `latest`; a failed build pushes nothing |
+| Registry                | **Docker Hub** `docker.io/rohitf116`, public repos, flat names (`auth-service`, not `auth/auth-service`). Moved off Artifact Registry so no pull secret is needed on any cluster |
+| Push script             | `scripts/push-images.sh` — builds `linux/amd64` via buildx and pushes all 7 (or named subset). `TAG=` / `PLATFORM=` overridable |
+| Cloud Build             | `cloudbuild.yaml` builds all 7 in parallel (`waitFor: ['-']`) and pushes via the `images:` block. **Currently failing** — see Gaps |
 | Health endpoints        | Shared `HealthModule`; TCP services run as hybrid apps exposing HTTP on `healthPort` 8080                                     |
 | Helm chart              | `k8s/ecommerce/` — Chart + `values.yaml` + `_helpers.tpl` (labels, image ref, pull secrets) + Deployment & Service per service |
 | Probes                  | Liveness + readiness wired on every Deployment                                                                                |
 | Resources               | requests `50m` / `128Mi`, limits `500m` / `512Mi` (shared across all services)                                                |
 | Secrets                 | Consumed from a `ecommerce-secrets` Secret created out-of-band (`db-password`, `jwt-secret`, `jwt-refresh-secret`, `stripe-key`) |
-| Local cluster           | Running on **orbstack**. All 7 pods `Running`. Gateway exposed as a `LoadBalancer` on `localhost:3000`                        |
+| **In-cluster data tier** | **NEW** — optional Postgres StatefulSet (ONE instance, all 5 databases created by a ConfigMap init script) + Redis StatefulSet, both PVC-backed. `postgres.enabled` / `redis.enabled`, **off by default** |
+| **Server overlay**      | **NEW** — `k8s/ecommerce/values-server.yaml`: enables the in-cluster data tier, points `db.host` at `postgres:5432`, and deletes the per-service `dbPort` overrides via `null` |
+| Local cluster           | Running on **orbstack**. Gateway exposed as a `LoadBalancer` on `localhost:3000`                                              |
 | Dev compose             | `docker-compose-dev.yaml` — 5 Postgres containers (5433/5435/5436/5437/5448) + Redis 6379. Kong is present but commented out  |
+
+### Server: Hetzner + k3s — **NEW**
+
+| | |
+| --- | --- |
+| Host | `ubuntu-4gb-hel1-2` @ `204.168.254.151`, Helsinki |
+| Specs | 2 vCPU, 4 GB, 38 GB disk, **x86_64**, Ubuntu 26.04 |
+| Cluster | k3s v1.36.3, single node. Bundles Traefik, ServiceLB, local-path, CoreDNS, metrics-server |
+| Cost | ~€4.29/mo incl. IPv4 — vs ~$46/mo for the equivalent on GKE |
+| kubeconfig | `~/.kube/hetzner.yaml` on the Mac (`export KUBECONFIG=…` to target it, `unset` for orbstack) |
+| Deployed | `postgres-0` + `redis-0` `1/1 Running` with all 5 databases created. The 7 app pods are `ImagePullBackOff` pending amd64 images |
+| Guide | `docs/guides/SERVER_DEPLOYMENT.md` |
+
+**Why k3s and not managed Kubernetes:** `type: LoadBalancer` works for free via ServiceLB
+(no cloud forwarding rule, which is ~$18/mo on GCP and ~$22 on AWS), Traefik ships bundled for
+Ingress, and there is no control-plane fee. EKS would be ~$73/mo before a single pod runs.
 
 ### Gaps
 
 | Gap                        | Impact                                                                                                          |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | **TCP doesn't load-balance** | ⛔ **Hard blocker.** A ClusterIP DNATs once at connect time; `Transport.TCP` holds one long-lived socket, so every gateway replica pins to a single backend pod forever. Every `replicas` value in `values.yaml` is currently a lie. See `docs/guides/K8S_PRODUCTION_HOSTING.md` §B1 |
-| **State lives outside the cluster** | `db.host` and `redis.host` are `host.docker.internal` — pods reach the Mac's docker-compose containers. Un-hostable as-is |
-| No Ingress                 | Gateway is a raw `LoadBalancer`; no TLS, no cert-manager, no single edge                                        |
+| **amd64 images not built yet** | ⛔ **Blocks the server.** The Mac builds arm64; the server is x86_64, so pods fail with `exec format error` / `ImagePullBackOff`. Fix: run `scripts/push-images.sh` (slow, cross-builds under emulation) or repair Cloud Build |
+| **Cloud Build broken**     | `gcr.io/cloud-builders/docker` uses the legacy builder, which rejects the `RUN --mount=type=cache` BuildKit directive in every Dockerfile. Either set `DOCKER_BUILDKIT=1` on the steps or drop the cache mounts |
+| State outside the cluster (local only) | Resolved on the server (in-cluster Postgres + Redis). **Locally** the default values still point at `host.docker.internal` — deliberate, so orbstack keeps using the compose containers |
+| No Ingress                 | Gateway is a raw `LoadBalancer`/`NodePort`; no TLS, no cert-manager, no domain. Traefik is already running on the server and unused |
 | No Namespace               | Everything deploys into `default`                                                                               |
 | No HPA                     | Blocked by the TCP issue anyway                                                                                 |
 | No PodDisruptionBudget     | A node drain takes services fully down                                                                          |
@@ -275,7 +300,9 @@ Scoped to **addresses only** so far. No user profiles, no preferences.
 | No ConfigMap               | Env vars are inlined in every Deployment template                                                               |
 | No migrations              | `synchronize: true` in all 5 TypeORM configs — schema drift can drop columns                                    |
 | Chart metadata unedited    | `Chart.yaml` still has the scaffold `description`, `version: 0.1.0`, `appVersion: "1.16.0"` (vs `global.tag: 0.2.0`) |
-| Cloud SQL unused           | `ecommerce-db` instance is provisioned and idle (~$12/mo) — the chart points at local Postgres instead          |
+| Cloud SQL orphaned         | `ecommerce-db` (Postgres 16, `asia-south1`, project `ecommerce-platform-rs`) is **STOPPED** (`activationPolicy: NEVER`) — ~$12/mo → ~$2.25/mo storage-only. Nothing uses it now that Postgres runs in-cluster. Deleting it is the last $2.25 |
+| PVC pinned to a node       | k3s `local-path` writes to the node's disk, so `postgres-0` can only ever schedule back to the node holding its data. Irrelevant at one node; matters the moment a second is added |
+| Junk registry repos        | Seven `<service>atest` repos in Artifact Registry from a mangled push loop (`:latest` → `atest`). Harmless, but should be deleted |
 
 ---
 
@@ -402,7 +429,7 @@ Also missing from user-service: actual user profiles. Only addresses are impleme
 **Ordered by what unblocks the most.** Items 1–3 are prerequisites for real hosting.
 
 1. **Fix TCP load-balancing (⛔ blocker)** — `Transport.TCP` + ClusterIP pins one socket to one pod, so every `replicas` value is currently fiction. Options: headless Services + client-side discovery, swap to NATS or Redis transport, or move to gRPC. NATS is the conventional answer for this shape. See `docs/guides/K8S_PRODUCTION_HOSTING.md` §B1
-2. **Get state into the cluster** — replace `host.docker.internal` with in-cluster Postgres (CloudNativePG) + Redis, or Cloud SQL via an in-cluster proxy. Decide the fate of the idle `ecommerce-db` instance either way
+2. **Ship amd64 images** — the one thing between the server and a live deployment. `scripts/push-images.sh` works but is slow under emulation; fixing the Cloud Build BuildKit issue is the better route. ~~Get state into the cluster~~ is **done** (in-cluster Postgres + Redis via `values-server.yaml`); all that remains is deleting the stopped `ecommerce-db`
 3. **Green the test suite** — 13 failing suites is worse than no tests, because it makes CI useless. Fix the DI mocks, delete the two specs importing non-existent modules, stub Stripe, drop the dead `JwtStrategy` reference
 4. **TypeORM migrations** — kill `synchronize: true` in all 5 services before any data matters
 5. **Finish the payment flow** — a real `Payment` entity + `payment_db`, a Stripe webhook handler with signature verification, and the `PENDING → CONFIRMED` order transition. Replace the hardcoded pattern strings with `PAYMENT_MESSAGES` on both sides, and fix `GET /payments`
@@ -437,6 +464,14 @@ Also missing from user-service: actual user profiles. Only addresses are impleme
 - **Health endpoints in a hybrid app can't throw.** `AllRpcExceptionsFilter` is `@Catch()`-all and returns an Observable, which an HTTP response can't consume — so readiness sets `res.status(503)` via `@Res({passthrough: true})` instead of throwing
 - **A ClusterIP load-balances connections, not requests.** One long-lived TCP socket = one backend pod forever. This is invisible at `replicas: 1` and is the single biggest architectural issue in the repo
 - **Adding a constructor dependency silently breaks every scaffold spec** for that class. 13 suites went red without a single test being edited
+- **`gcr.io/cloud-builders/docker` has no BuildKit.** `RUN --mount=type=cache` works locally and fails in Cloud Build with "the --mount option requires BuildKit"
+- **A Mac builds arm64; most servers are amd64.** An arch mismatch surfaces as `exec format error` at runtime, or as a misleading Artifact Registry `Unauthenticated request … (or it may not exist)` on pull
+- **"Unauthenticated" from a registry can mean "not found".** A mangled push had created `<service>atest:latest` instead of `<service>:latest`; the pull error blamed credentials
+- **`postgres` on a fresh PVC needs `PGDATA` one level below the mount** — the volume root contains `lost+found`, and `initdb` refuses a non-empty directory
+- **A Postgres init script runs only once**, when the data directory is empty. Rotating the k8s Secret afterwards leaves services using a password the database never had
+- **Port collisions produce misleading auth errors.** Pods pointed at `host.docker.internal:5433` hit the *local* compose Postgres instead of the Cloud SQL proxy, and failed with "password authentication failed for user ecom_app" — a user that database had never heard of
+- **A stopped Cloud SQL instance still bills for storage.** Only deleting it stops the charge
+- **k3s `local-path` PVCs pin a pod to a node.** Fine on one node; a constraint the moment you scale out
 
 ---
 
@@ -467,10 +502,31 @@ kubectl get pods                                   # 7 pods
 curl localhost:3000/api/v1/health/live             # gateway via LoadBalancer
 ```
 
+### On Kubernetes (Hetzner server)
+
+All Helm/kubectl commands run **from the Mac** — `helm` is not installed on the server, and on
+the server `KUBECONFIG` must be **unset** so k3s picks up `/etc/rancher/k3s/k3s.yaml`.
+
+```bash
+./scripts/push-images.sh                          # linux/amd64 → Docker Hub (slow)
+
+export KUBECONFIG=~/.kube/hetzner.yaml
+cd k8s/ecommerce
+helm upgrade --install ecommerce . -f values.yaml -f values-server.yaml
+kubectl get pods
+
+curl http://204.168.254.151:3000/api/v1/categories
+unset KUBECONFIG                                   # back to orbstack
+```
+
+`ecommerce-secrets` already exists on the server and **must not be recreated** — Postgres was
+initialized with that password, and the init script only runs on first boot.
+
 ### Building images
 
 ```bash
-gcloud builds submit --config cloudbuild.yaml --project=distance-493706
+./scripts/push-images.sh                          # local buildx, amd64, Docker Hub
+gcloud builds submit --config cloudbuild.yaml --project=distance-493706   # currently FAILS (BuildKit)
 ```
 
 | Service             | Type  | Port | Health |

@@ -1,14 +1,17 @@
 # Shared settings ------------------------------------------------------------
 global:
-  registry: asia-south1-docker.pkg.dev/distance-493706
-  # Built locally AND pushable to Artifact Registry; orbstack's kubelet resolves it
-  # from the local Docker store with IfNotPresent — no registry credentials needed.
+  # Docker Hub. Repositories are PUBLIC, so no pull secret is needed anywhere —
+  # any cluster can pull these directly. Push with ./scripts/push-images.sh
+  registry: docker.io/rohitf116
   tag: '0.2.0'
+  # IfNotPresent + a pinned tag: orbstack reuses a locally built image of the
+  # same name, a remote cluster pulls it from Docker Hub once.
   imagePullPolicy: IfNotPresent
   # HTTP port the TCP microservices serve /health/live and /health/ready on.
   # The gateway serves them on its own HTTP port instead.
   healthPort: 8080
-  # Pulling from Artifact Registry outside GKE needs a pull secret, e.g.
+  # Only needed for a PRIVATE registry, e.g. if you move back to Artifact
+  # Registry (asia-south1-docker.pkg.dev/distance-493706, nested repo paths):
   #   imagePullSecrets:
   #     - name: artifact-registry
   imagePullSecrets: []
@@ -80,7 +83,7 @@ resources:
 services:
   apiGateway:
     name: api-gateway
-    repo: api-gateway/api-gateway
+    repo: api-gateway
     port: 3000
     replicas: 1
     # LoadBalancer: orbstack exposes it on localhost:3000, no port-forward needed.
@@ -89,7 +92,7 @@ services:
 
   auth:
     name: auth-service
-    repo: auth/auth-service
+    repo: auth-service
     port: 3001
     replicas: 1
     dbName: auth_db
@@ -97,7 +100,7 @@ services:
 
   product:
     name: product-service
-    repo: product/product-service
+    repo: product-service
     port: 3002
     replicas: 1
     dbName: product_db
@@ -105,7 +108,7 @@ services:
 
   cart:
     name: cart-service
-    repo: cart/cart-service
+    repo: cart-service
     port: 3003
     replicas: 1
     dbName: cart_db
@@ -113,7 +116,7 @@ services:
 
   orders:
     name: orders-service
-    repo: order/orders-service
+    repo: orders-service
     port: 3004
     replicas: 1
     dbName: order_db
@@ -121,13 +124,13 @@ services:
 
   payment:
     name: payment-service
-    repo: payment/payment-service
+    repo: payment-service
     port: 3005
     replicas: 1
 
   user:
     name: user-service
-    repo: user/user-service
+    repo: user-service
     port: 3006
     replicas: 1
     dbName: user_db
