@@ -1,6 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { Product } from './products/entities/product.entity';
 import { Category } from './categories/entities/category.entity';
+import { InitialSchema1787167779708 } from './migrations/1787167779708-InitialSchema';
 
 /**
  * Single source of truth for product-service's database connection.
@@ -28,7 +29,7 @@ export const buildProductDataSourceOptions = (
   password: get('PRODUCT_DB_PASSWORD') || 'postgres',
   database: get('PRODUCT_DB_NAME') || 'product_db',
   entities: [Product, Category],
-  migrations: [],
+  migrations: [InitialSchema1787167779708],
   synchronize: false,
   migrationsRun: false,
 });

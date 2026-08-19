@@ -1,6 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { Order } from './orders/entities/order.entity';
 import { OrderItem } from './orders/entities/order-item.entity';
+import { InitialSchema1787167781487 } from './migrations/1787167781487-InitialSchema';
 
 /**
  * Single source of truth for orders-service's database connection.
@@ -29,7 +30,7 @@ export const buildOrderDataSourceOptions = (
   password: get('ORDER_DB_PASSWORD') || 'postgres',
   database: get('ORDER_DB_NAME') || 'order_db',
   entities: [Order, OrderItem],
-  migrations: [],
+  migrations: [InitialSchema1787167781487],
   synchronize: false,
   migrationsRun: false,
 });

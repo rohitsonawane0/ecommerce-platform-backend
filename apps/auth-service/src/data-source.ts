@@ -1,5 +1,6 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { User } from './auth/entities/user.entity';
+import { InitialSchema1787167778086 } from './migrations/1787167778086-InitialSchema';
 
 /**
  * Single source of truth for auth-service's database connection.
@@ -27,7 +28,7 @@ export const buildAuthDataSourceOptions = (
   password: get('DB_PASSWORD') || 'postgres',
   database: get('DB_NAME') || 'auth_db',
   entities: [User],
-  migrations: [],
+  migrations: [InitialSchema1787167778086],
   synchronize: false,
   migrationsRun: false,
 });

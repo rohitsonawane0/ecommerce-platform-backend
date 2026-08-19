@@ -1,6 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { Cart } from './cart/entities/cart.entity';
 import { CartItem } from './cart/entities/cart-item.entity';
+import { InitialSchema1787167780587 } from './migrations/1787167780587-InitialSchema';
 
 /**
  * Single source of truth for cart-service's database connection.
@@ -28,7 +29,7 @@ export const buildCartDataSourceOptions = (
   password: get('CART_DB_PASSWORD') || 'postgres',
   database: get('CART_DB_NAME') || 'cart_db',
   entities: [Cart, CartItem],
-  migrations: [],
+  migrations: [InitialSchema1787167780587],
   synchronize: false,
   migrationsRun: false,
 });

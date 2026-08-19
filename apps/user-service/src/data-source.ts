@@ -1,5 +1,6 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { Address } from './addresses/address.entity';
+import { InitialSchema1787167782862 } from './migrations/1787167782862-InitialSchema';
 
 /**
  * Single source of truth for user-service's database connection.
@@ -27,7 +28,7 @@ export const buildUserDataSourceOptions = (
   password: get('USER_DB_PASSWORD') || 'postgres',
   database: get('USER_DB_NAME') || 'user_db',
   entities: [Address],
-  migrations: [],
+  migrations: [InitialSchema1787167782862],
   synchronize: false,
   migrationsRun: false,
 });
