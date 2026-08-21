@@ -73,6 +73,16 @@
         "tsConfigPath": "apps/product-service/tsconfig.app.json"
       }
     },
+    "product-service-migrations": {
+      "type": "application",
+      "root": "apps/product-service",
+      "entryFile": "migrate",
+      "sourceRoot": "apps/product-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/product-service/tsconfig.app.json",
+        "deleteOutDir": false
+      }
+    },
     "user-service": {
       "type": "application",
       "root": "apps/user-service",

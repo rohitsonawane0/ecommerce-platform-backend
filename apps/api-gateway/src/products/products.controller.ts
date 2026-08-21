@@ -31,7 +31,6 @@ export class ProductsController {
 
   @Get()
   findAll(@Query() query: FindProductsQueryDto) {
-    console.log(query);
     return firstValueFrom(
       this.productClient.send(PRODUCT_MESSAGES.FIND_ALL, query),
     );

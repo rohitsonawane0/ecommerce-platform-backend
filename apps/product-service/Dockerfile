@@ -20,7 +20,15 @@ FROM deps AS build
 COPY tsconfig.json tsconfig.build.json nest-cli.json ./
 COPY libs ./libs
 COPY apps/product-service ./apps/product-service
-RUN pnpm exec nest build product-service
+# Two bundles land in the SAME dist/apps/product-service dir: main.js (the app) and
+# migrate.js (the migration entrypoint) — nest-cli names the output after entryFile and
+# ignores the tsconfig outDir in monorepo mode.
+#
+# Order is load-bearing: the app build has deleteOutDir: true and wipes the directory,
+# so it must run FIRST. The migrations project sets deleteOutDir: false, so it adds
+# migrate.js without removing main.js. Reversed, the image ships without migrate.js.
+RUN pnpm exec nest build product-service \
+ && pnpm exec nest build product-service-migrations
 
 # ---- production deps only ----
 FROM base AS prod-deps

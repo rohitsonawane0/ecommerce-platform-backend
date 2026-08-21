@@ -7,6 +7,6 @@ export class PaymentServiceController {
 
   @Get()
   getHello(): string {
-    return this.paymentServiceService.getHello();
+    return 's';
   }
 }
